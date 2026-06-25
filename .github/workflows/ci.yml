@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🐳 Δοκιμή Docker Build
-        run: docker-compose build
+        run: docker compose build
