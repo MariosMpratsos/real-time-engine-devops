@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+      build: .
+          ports:
+                - "8000:8000"
+                    volumes:
+                          - ./metrics.db:/app/metrics.db
+
+                            frontend:
+                                build: ./frontend
+                                    ports:
+                                          - "5173:5173"
+                                              depends_on:
+                                                    - backend

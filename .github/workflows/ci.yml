@@ -1,0 +1,17 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Κατέβασμα Κώδικα
+        uses: actions/checkout@v4
+
+      - name: 🐳 Δοκιμή Docker Build
+        run: docker-compose build
