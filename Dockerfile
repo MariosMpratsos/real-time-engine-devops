@@ -1,16 +1,6 @@
-version: '3.8'
-
-services:
-  backend:
-      build: .
-          ports:
-                - "8000:8000"
-                    volumes:
-                          - ./metrics.db:/app/metrics.db
-
-                            frontend:
-                                build: ./frontend
-                                    ports:
-                                          - "5173:5173"
-                                              depends_on:
-                                                    - backend
+FROM python:3.10-slim
+WORKDIR /app
+COPY . .
+RUN pip install fastapi uvicorn websockets
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
