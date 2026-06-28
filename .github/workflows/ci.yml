@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -8,10 +8,21 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: 📥 Κατέβασμα Κώδικα
         uses: actions/checkout@v4
-
+      
       - name: 🐳 Δοκιμή Docker Build
         run: docker compose build
+
+  deploy-local:
+    needs: build-and-test
+    runs-on: self-hosted
+    steps:
+      - name: 📥 Κατέβασμα Κώδικα στον Local Server
+        uses: actions/checkout@v4
+      
+      - name: 🚀 Ανέβασμα (Deploy) με Docker
+        run: |
+          docker compose down
+          docker compose up -d --build
